@@ -5,8 +5,11 @@
 class Vector
 {
 public:
-    Vector() : x{ 0.f }, y{ 0.f }, z{ 0.f } {};
-    Vector(float x, float y, float z) : x{ x }, y{ y }, z{ z } {};
+    Vector() : x{ 0.f }, y{ 0.f }, z{ 0.f } {}
+    Vector(float x, float y, float z) : x{ x }, y{ y }, z{ z } {}
+    Vector(const Vector& other) : x{ other.x }, y{ other.y }, z{ other.z } {}
+
+    ~Vector() {}
 
     friend Vector operator+(const Vector& v1, const  Vector& v2);
     friend Vector operator-(const Vector& v1, const  Vector& v2);
@@ -48,8 +51,19 @@ public:
         return Vector(-x, -y, -z);
     }
 
+    Vector& operator=(const Vector& fromValue)
+    {
+        x = fromValue.x;
+        y = fromValue.y;
+        z = fromValue.z;
+
+        return *this;
+    }
+
 private:
     float x, y, z;
+
+    std::string* Info;
 };
 
 Vector operator+(const Vector& v1, const  Vector& v2)
