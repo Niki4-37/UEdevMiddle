@@ -1,31 +1,51 @@
 #pragma once
 
 #include <ctime>
-#include "Vector.h"
-#include "ComplexObject.h"
+#include "Vehicle.h"
+
+float  getHighestPower(const std::vector<Vehicle*>& vehicles)
+{
+    if (vehicles.empty()) return 0.f;
+    float maxPower{};
+    for (const auto vehicle : vehicles)
+    {
+        if (!vehicle) continue;
+        if (maxPower < vehicle->getPower())
+        {
+            maxPower = vehicle->getPower();
+        }
+    }
+    return maxPower;
+}
 
 int main()
 {
-    srand(time(0));
-    char newObjectName[]{ "Pear" };
-    auto vec1 = new Vector(5.5f, -4.1f, .5f);
-    ComplexObject newObject(newObjectName, 4, vec1);
-    delete vec1;
+    Car c(Engine(150), Wheel(17), Wheel(17), Wheel(18), Wheel(18), 150);
 
-    for (; newObject.push(rand() % 201 - 100);) {};
-    std::cout << newObject << '\n';
+    std::cout << c << '\n';
 
-    char zeroObjectName[]{ "Zero" };
-    vec1 = new Vector();
-    ComplexObject zeroObject(zeroObjectName, 3, vec1);
-    delete vec1;
-    std::cout << zeroObject << '\n';
+    Bicycle t(Wheel(20), Wheel(20), 300);
 
-    ComplexObject copyNewObject{ zeroObject };
-    std::cout << copyNewObject << '\n';
+    std::cout << t << '\n';
 
-    copyNewObject = newObject;
-    std::cout << copyNewObject << '\n';
+
+    std::vector<Vehicle*> v;
+
+    v.push_back(new Car(Engine(150), Wheel(17), Wheel(17), Wheel(18), Wheel(18), 250));
+
+    v.push_back(new Car(Engine(200), Wheel(19), Wheel(19), Wheel(19), Wheel(19), 130));
+
+    v.push_back(new WaterVehicle(5000));
+
+    for (const auto vehicle : v)
+    {
+        if (!vehicle) continue;
+        std::cout << *vehicle << '\n';
+    }
+
+    std::cout << "The highest power is " << getHighestPower(v);
+
+    v.clear();
 
     return 0;
 }
