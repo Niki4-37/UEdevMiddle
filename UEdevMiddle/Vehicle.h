@@ -90,9 +90,20 @@ protected:
 
     float getClearance() const { return clearance; };
 
+    std::ostream& outWheels(std::ostream& out) const;
+
 private:
     float clearance{};
 };
+
+std::ostream& RoadVehicle::outWheels(std::ostream& out) const
+{
+    for (const auto& wheel : wheels)
+    {
+        out << wheel << ' ';
+    }
+    return out;
+}
 
 class Bicycle : public RoadVehicle
 {
