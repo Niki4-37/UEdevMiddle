@@ -127,8 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractFactory.h" />
+    <ClInclude Include="BattleDirector.h" />
     <ClInclude Include="ComplexObject.h" />
+    <ClInclude Include="CoreTypes.h" />
+    <ClInclude Include="Factory.h" />
     <ClInclude Include="Fraction.h" />
+    <ClInclude Include="StrategyUnitsBuilder.h" />
+    <ClInclude Include="StrategyUnitsFactory.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Vehicle.h" />
   </ItemGroup>

@@ -1,24 +1,30 @@
 #pragma once
-#include <memory>
-#include "Fraction.h"
+#include "CoreTypes.h"
+#include "BattleDirector.h"
+#include "StrategyUnitsFactory.h"
 
 int main()
 {
-    int a, b;
-    std::cout << "enter numerator: ";
-    std::cin >> a;
-    std::cout << "\nenter denominator: ";
-    std::cin >> b;
+    // loading battle using BattleUnitData array for fractions from side source
+    std::vector<CombatUnitData*> France;
+    France.push_back(new CombatUnitData(unitType::INFANTRY, 10, 5, 10, 10, 10));
+    France.push_back(new CombatUnitData(unitType::CAVALRY, 10, 10, 15, 10, 10));
 
-    try
+    std::vector<CombatUnitData*> German;
+    German.push_back(new CombatUnitData(unitType::INFANTRY, 8, 5, 10, 7, 10));
+    German.push_back(new CombatUnitData(unitType::MARKSMAN, 5, 7, 5, 5, 10));
+    German.push_back(new CombatUnitData(unitType::ARTILLERY, 5, 7, 5, 5, 5));
+
+    const auto franceForces = new FranceForces;
+    const auto germanForces = new GermanForces;
+
+    if (BattleDirector::getBattleDirector())
     {
-        std::unique_ptr<Fraction> u_ptr_fraction1{ new Fraction(a, b) };
-        std::cout << *u_ptr_fraction1;
+        BattleDirector::getBattleDirector()->startBattleBetween(franceForces, France, germanForces, German);
     }
-    catch (std::exception& exception)
-    {
-        std::cerr << exception.what() << '\n';
-    }
+
+    delete germanForces;
+    delete franceForces;
 
     return 0;
 }
